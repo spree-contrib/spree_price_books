@@ -1,0 +1,4 @@
+<!--
+insert_bottom "[data-hook='admin_product_sub_tabs'], #sub_nav"
+-->
+<%= tab :price_books %>

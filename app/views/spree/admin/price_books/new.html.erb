@@ -1,0 +1,11 @@
+<%= render :partial => 'spree/admin/shared/product_sub_menu' %>
+
+<% content_for :page_title do %>
+  <%= Spree.t(:new_price_book) %>
+<% end %>
+
+<%= render :partial => 'spree/shared/error_messages', :locals => { :target => @price_book } %>
+
+<div id="price_book_form_wrapper">
+  <%= render partial: 'new' %>
+</div>

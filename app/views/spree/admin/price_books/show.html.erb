@@ -1,0 +1,54 @@
+<% content_for :page_title do %>
+  <%= Spree.t(:price_book) %>
+  <span class="green">"<%= @price_book.name %>"</span>
+<% end %>
+
+<% content_for :page_actions do %>
+  <li id="edit_pb_link">
+    <%= button_link_to Spree.t(:edit_price_book),
+      spree.edit_admin_price_book_url,
+      { :icon => 'icon-edit', :id => 'edit_price_book_link' } %>
+  </li>
+  <% if @price_book.explicit? %>
+  <li id="add_products_pb_link">
+    <%= button_link_to Spree.t(:add_products),
+      spree.add_products_admin_price_book_path(@price_book),
+      { :icon => 'icon-plus', :id => 'add_products_price_book_link' } %>
+  </li>
+  <% end %>
+<% end %>
+
+<%= render :partial => 'spree/admin/shared/product_sub_menu' %>
+
+<table class="index" id="listing_price_book_attributes" data-hook>
+  <colgroup>
+    <col style="width: 25%">
+    <col style="width: 75%">
+  </colgroup>
+  <thead>
+    <tr data-hook="option_header">
+      <th><%= Spree.t(:attribute) %></th>
+      <th><%= Spree.t(:value) %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @price_book.showable_attributes.each_pair do |name, value| %>
+      <% if value.present? %>
+        <tr class="spree_price_book <%= cycle('odd', 'even')%>"
+          id="<%= spree_dom_id @price_book %>"
+          data-hook="option_row">
+          <td class="align-center"><%= name.humanize %></td>
+          <td class="align-left"><%= value %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
+
+<br />
+
+<h4><%= Spree.t(:products) %></h4><br />
+<% if @price_book.explicit? %>
+  <%= render partial: 'added_products' %>
+  <div class="pagination_links_bottom"><%= paginate @products %></div>
+<% end %>

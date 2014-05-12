@@ -1,0 +1,25 @@
+<% content_for :page_title do %>
+  <%= Spree.t(:price_book) %>
+  <span class="green">"<%= @price_book.name %>"</span>
+<% end %>
+
+<%= render :partial => 'spree/admin/shared/product_sub_menu' %>
+
+<% if @price_book.explicit? %>
+  <h4><%= Spree.t(:products) %></h4><br />
+
+  <% if @products.any? %>
+    <%= form_for [:admin, @price_book], url: { action: "products" } do |f| %>
+      <fieldset>
+        <%= render partial: 'add_products_form', locals: { f: f } %>
+        <%= render :partial => 'spree/admin/shared/edit_resource_links' %>
+      </fieldset>
+    <% end %>
+  <div class="pagination_links_bottom"><%= paginate @products %></div>
+  <% else %>
+    <div class="alpha twelve columns no-objects-found">
+      <%= Spree.t(:no_resource_found,
+        resource: I18n.t(:other, scope: 'activerecord.models.spree/product')) %>
+    </div>
+  <% end %>
+<% end %>

@@ -1,0 +1,60 @@
+<%= render :partial => 'spree/admin/shared/product_sub_menu' %>
+<%= render :partial => 'spree/admin/shared/product_tabs', :locals => { :current => 'Prices' } %>
+
+<%# did we get her via redirect? %>
+<% if @current_price_book.nil? %>
+  <% @current_price_book = Spree::PriceBook.find session[:current_price_book_id] %>
+<% end %>
+
+<%= form_tag :admin_update_variants_prices, method: :put %>
+  <div class="field">
+    <%= label :price_book_id, Spree::PriceBook.model_name.human(:count => 2) %>
+    <%= select_tag :price_book_id, options_for_select(@price_books.map {|pb| ["#{pb.name} (#{pb.currency})", pb.id]}, @current_price_book.id) %>
+  </div>
+
+  <table class="index">
+    <colgroup>
+      <col style="width: 70%" />
+      <col style="width: 15%" />
+      <col style="width: 15%" />
+    </colgroup>
+    <thead data-hook="variants_header">
+      <tr>
+        <th><%= Spree.t(:variant) %></th>
+        <th><%= Spree.t(:default_price) %></th>
+        <th><%= "#{Spree.t(:price)} (#{@current_price_book.currency})" %></th>
+      </tr>
+    </thead>
+    <tbody>
+    <% @variants.each do |variant| %>
+      <tr id="<%= spree_dom_id variant %>" <%= 'style="color:red;"' if variant.deleted? %> data-hook="variants_row" class="<%= cycle('odd', 'even')%>">
+        <td><%= variant.is_master? ? 'Master' : variant.options_text %></td>
+        <td class="align-center"><%= Spree::Money.new(variant.default_price.amount, currency: variant.default_price.currency) %></td>
+        <td class="align-center">
+          <% if @current_price_book.factored? %>
+            <%= Spree::Money.new(@prices[variant.id].amount, currency: @prices[variant.id].currency) %>
+          <% else %>
+            <%# forgot the magic secret to dynamically determine the class name without it being treated as html_unsafe :-( %>
+            <% if variant.is_master?  %>
+              <%= text_field_tag "variant[#{variant.id}][amount]", @prices[variant.id].try(:amount), :class => 'fullwidth master' %>
+            <% else %>
+              <%= text_field_tag "variant[#{variant.id}][amount]", @prices[variant.id].try(:amount), :class => 'fullwidth' %>
+            <% end %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+
+  <div class="form-buttons filter-actions actions" data-hook="buttons">
+    <%= button Spree.t('actions.update'), 'icon-refresh' %>
+    <span class="or"><%= Spree.t(:or) %></span>
+    <%= button_link_to Spree.t('actions.cancel'), spree.admin_product_url(@product), :icon => 'icon-remove' %>
+  </div>
+  
+  <%# this is horrible Jeff S.  Why didn't you just keep the product in the route? %>
+  <%= hidden_field_tag :product_id, @product.id %> <%# due to the goofy way i chose to do my routing/redirecting %>
+</form>
+
+

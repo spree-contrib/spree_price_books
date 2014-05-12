@@ -1,0 +1,59 @@
+<% content_for :page_title do %>
+  <%= Spree::PriceBook.model_name.human(:count => 2) %>
+<% end %>
+
+<% content_for :page_actions do %>
+  <li id="new_pb_link">
+    <%= button_link_to Spree.t(:new_price_book), new_admin_price_book_url, { :remote => true, :icon => 'icon-plus', :id => 'new_price_book_link' } %>
+  </li>
+<% end %>
+
+<%= render :partial => 'spree/admin/shared/product_sub_menu' %>
+
+<div id="price_book_form_wrapper"></div>
+
+<% if @price_books.any? %>
+<table class="index sortable" id="listing_price_bookss" data-hook data-sortable-link="<%= update_positions_admin_option_types_url %>">
+  <colgroup>
+    <col style="width: 5%">
+    <col style="width: 30%">
+    <col style="width: 5%">
+    <col style="width: 30%">
+    <col style="width: 5%">
+    <col style="width: 15%">
+    <col style="width: 10%">
+  </colgroup>
+  <thead>
+    <tr data-hook="option_header">
+      <th><%= Spree::PriceBook.human_attribute_name(:priority) %></th>
+      <th><%= Spree::PriceBook.human_attribute_name(:name) %></th>
+      <th><%= Spree::PriceBook.human_attribute_name(:currency) %></th>
+      <th><%= Spree::PriceBook.human_attribute_name(:parent) %></th>
+      <th><%= Spree::PriceBook.human_attribute_name(:price_adjustment_factor) %></th>
+      <th><%= Spree::PriceBook.human_attribute_name(:default) %>?</th>
+      <th class="actions"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @price_books.each do |price_book| %>
+      <tr class="spree_price_book <%= cycle('odd', 'even')%>" id="<%= spree_dom_id price_book %>" data-hook="option_row">
+        <td class="align-center"><%= price_book.priority %></td>
+        <td class="align-center"><%= link_to price_book.name, admin_price_book_url(price_book) %></td>
+        <td class="align-center"><%= price_book.currency %></td>
+        <td class="align-center"><%= price_book.parent.try(:name) %></td>
+        <td class="align-center"><%= price_book.price_adjustment_factor %></td>
+        <td class="align-center"><%= price_book.default %></td>
+        <td class="actions">
+          <%= link_to_edit(price_book, :class => 'admin_edit_price_book', :no_text => true) %>
+          <%= link_to_delete(price_book, :no_text => true) unless price_book.default?%>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<% else %>
+  <div class="alpha twelve columns no-objects-found">
+    <%= Spree.t(:no_resource_found, resource: I18n.t(:other, scope: 'activerecord.models.spree/price_book')) %>,
+    <%= link_to Spree.t(:add_one), spree.new_admin_price_book_path %>!
+  </div>
+<% end %>

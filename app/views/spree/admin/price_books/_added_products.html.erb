@@ -1,0 +1,52 @@
+<% if @products.any? %>
+  <table class="index" id="listing_products">
+    <colgroup>
+       <col style="width: 15%;">
+       <col style="width: 10%;">
+       <col style="width: 48%;">
+       <col style="width: 10%;">
+       <col style="width: 17%;">
+    </colgroup>
+    <thead>
+      <tr data-hook="admin_products_index_headers">
+        <th><%= Spree.t(:sku) %></th>
+        <th colspan="2"><%= Spree.t(:name) %></th>
+        <th><%= Spree.t(:master_price) %></th>
+        <th data-hook="admin_products_index_header_actions" class="actions">
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @products.each do |product| %>
+        <tr <%= "style='color: red;'" if product.deleted? %>
+          id="<%= spree_dom_id product %>"
+          data-hook="admin_products_index_rows"
+          class="<%= cycle('odd', 'even') %>">
+          <td class="align-center"><%= product.sku rescue '' %></td>
+          <td class="align-center"><%= mini_image(product) %></td>
+          <td><%= link_to product.try(:name), edit_admin_product_path(product) %></td>
+          <td class="align-center">
+            <%= product.display_master_price_for(@price_book) %>
+          </td>
+          <td class="actions" data-hook="admin_products_index_row_actions">
+            <%= link_to "Edit price", admin_price_book_product_edit_product_price_path(
+              @price_book.id, product.id
+            ) %>
+            <br />
+            <%= link_to("Remove product",
+              admin_price_book_product_remove_product_path(
+                @price_book.id, product.id
+              )) unless @price_book.default?
+            %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <div class="alpha twelve columns no-objects-found">
+    <%= Spree.t(:no_resource_found,
+      resource: I18n.t(:other, scope: 'activerecord.models.spree/product')) %>,
+    <%= link_to Spree.t(:add_some), spree.add_products_admin_price_book_path(@price_book) %>!
+  </div>
+<% end %>
