@@ -45,6 +45,7 @@ describe Spree::PriceBook do
 
       it 'should return books for array of ids' do
         expect(subject.class.by_role([admin.id, employee.id]).to_a).to match_array([pb1, pb5])
+        expect(subject.class.by_role([nil, employee.id]).to_a).to match_array([pb2, pb4, pb5])
       end
     end
 

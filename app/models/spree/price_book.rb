@@ -24,9 +24,9 @@ class Spree::PriceBook < ActiveRecord::Base
     where("#{table_name}.default = ? OR (#{table_name}.active_from <= ? AND (#{table_name}.active_to IS NULL OR #{table_name}.active_to >= ?))",
       true, Time.zone.now, Time.zone.now)
   }
-  scope :by_currency, -> (currency_iso) { where("#{table_name}.currency = ?", currency_iso).prioritized }
+  scope :by_currency, -> (currency_iso) { where(currency: currency_iso).prioritized }
   scope :by_role, -> (role_ids) { where(role_id: role_ids) }
-  scope :by_store, -> (store_id) { joins(:store_price_books).where("#{Spree::StorePriceBook.table_name}.store_id = ?", store_id) }
+  scope :by_store, -> (store_id) { joins(:store_price_books).where(spree_store_price_books: { store_id: store_id }) }
   scope :discount, -> { where(discount: true) }
   scope :explicit, -> { where(parent_id: nil, price_adjustment_factor: nil) }
   scope :list, -> { where(discount: false) }
