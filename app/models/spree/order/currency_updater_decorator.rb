@@ -4,14 +4,12 @@ module Spree
 
       # Returns the price object from given item
       def list_price_from_line_item(line_item)
-        role_ids = line_item.order.user.present? ? line_item.order.user.roles.pluck(:id) : nil
-        line_item.variant.list_price_in(price.currency, line_item.order.store.id, role_ids)
+        line_item.variant.list_price_in(currency, store_id, user.try(:price_book_role_ids))
       end
 
       # Returns the price object from given item
       def price_from_line_item(line_item)
-        role_ids = line_item.order.user.present? ? line_item.order.user.roles.pluck(:id) : nil
-        line_item.variant.price_in(price.currency, line_item.order.store.id, role_ids)
+        line_item.variant.price_in(currency, store_id, user.try(:price_book_role_ids))
       end
 
       # Updates price from given line item

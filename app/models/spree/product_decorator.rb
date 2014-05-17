@@ -1,4 +1,7 @@
 Spree::Product.class_eval do
+
+  has_many :price_books, through: :master
+
   def master_price_for(price_book)
     Spree::Price.where(
       variant_id: self.master.id,
@@ -10,4 +13,5 @@ Spree::Product.class_eval do
     price = master_price_for(price_book)
     Spree::Money.new(price.amount, currency: price_book.currency)
   end
+
 end
