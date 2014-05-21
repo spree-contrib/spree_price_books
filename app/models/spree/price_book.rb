@@ -10,12 +10,13 @@ class Spree::PriceBook < ActiveRecord::Base
   has_many :stores, through: :store_price_books
   has_many :variants, through: :prices
 
+  validate :validate_currency_rate
+  validate :validate_single_default
+
   validates :active_to, timeliness: { after: :active_from, allow_blank: true }
   validates :currency, presence: true
   validates :price_adjustment_factor,
     presence: { if: Proc.new { |record| record.factored? } }
-
-  validate :validate_single_default
 
   after_create :update_prices_with_adjustment_factor
   after_update :update_prices_with_adjustment_factor, if: :price_adjustment_factor_changed?
@@ -142,6 +143,13 @@ class Spree::PriceBook < ActiveRecord::Base
   end
 
   private
+
+  # When the adjustment factor is blank for a child price book of a foreign currency set the factor to the available exchange rate.
+  def validate_currency_rate
+    if parent.present? && parent.currency != currency && price_adjustment_factor.blank?
+      self.price_adjustment_factor = Spree::CurrencyRate.find_by(base_currency: parent.currency, currency: currency).try(:exchange_rate)
+    end
+  end
 
   def validate_single_default
     return unless default?

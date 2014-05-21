@@ -1,6 +1,7 @@
 Spree::Core::Engine.routes.draw do
 
   namespace :admin do
+    resources :currency_rates
     resources :price_books do
       resources :products, only: [] do
         get :remove_product, controller:'price_books'

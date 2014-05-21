@@ -19,6 +19,17 @@ bundle
 bundle exec rails g spree_price_books:install
 ```
 
+Configuration
+-------------
+
+Once installed you can seed default currency exchange rates via Google's Currency API.
+
+```shell
+bundle exec rake price_books:currency_rates
+```
+
+Or configure from within the admin panels configuration tab.
+
 Testing
 -------
 

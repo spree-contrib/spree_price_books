@@ -187,6 +187,15 @@ describe Spree::PriceBook do
 
   end
 
+  it '#validate_currency_rate' do
+    default_book = create(:default_price_book)
+    create(:currency_rate, base_currency: default_book.currency, currency: 'CAD', exchange_rate: 2)
+    new_book = build :price_book, currency: 'CAD', parent: default_book, price_adjustment_factor: nil
+
+    expect(new_book.valid?).to be_true
+    expect(new_book.price_adjustment_factor).to eql(2.0)
+  end
+
   it '#validate_single_default' do
     # Create default
     default_book = create(:default_price_book)

@@ -4,6 +4,17 @@ FactoryGirl.define do
   # Example adding this to your spec_helper will load these Factories for use:
   # require 'spree_price_books/factories'
 
+
+  factory :currency_rate, class: 'Spree::CurrencyRate' do
+    base_currency { Spree::Config[:currency] }
+    currency { Spree::Config[:currency] }
+    exchange_rate 1
+
+    factory :default_currency_rate do
+      default true
+    end
+  end
+
   factory :price_book, :class => 'Spree::PriceBook' do
     currency { Spree::Config[:currency] }
     name 'Generic Price Book'

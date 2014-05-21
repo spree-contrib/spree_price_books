@@ -1,0 +1,24 @@
+<div data-hook="admin_currency_rate_form_fields">
+  <div class="alpha twelve columns">
+    <fieldset data-hook="currency_rates" class=" no-border-bottom">
+      <legend align="center"><%= Spree.t(:settings) %></legend>
+
+      <div class="alpha six columns">
+        <div data-hook="currency" class="field">
+          <%= f.label :currency, Spree.t(:currency) %>
+          <%= f.text_field :currency, class: 'fullwidth' %>
+        </div>
+        <div data-hook="exchange_rate" class="field">
+          <%= f.label :exchange_rate, Spree.t(:exchange_rate) %>
+          <%= f.text_field :exchange_rate, :class => 'fullwidth' %>
+          <br/><span class="info"><%= Spree.t(:currency_rate_explanation) %></span>
+        </div>
+        <div data-hook="default_rate" class="field">
+          <%= f.check_box :default %>
+          <%= f.label :default, Spree.t(:default) %>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+  <div class="clear"></div>
+</div>

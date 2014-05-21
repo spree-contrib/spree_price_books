@@ -1,0 +1,5 @@
+<!-- insert_bottom "[data-hook='admin_configurations_sidebar_menu'], #admin_configurations_sidebar_menu[data-hook]" -->
+
+<% if can? :manage, Spree::CurrencyRate %>
+  <%= configurations_sidebar_menu_item Spree.t(:currency_rates), spree.admin_currency_rates_path %>
+<% end %>

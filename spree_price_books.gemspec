@@ -16,6 +16,7 @@ Gem::Specification.new do |s|
   s.require_path = 'lib'
   s.requirements << 'none'
 
+  s.add_dependency 'google_currency'
   s.add_dependency 'spree_core', '~> 2.3.0.beta'
   s.add_dependency 'validates_timeliness'
 

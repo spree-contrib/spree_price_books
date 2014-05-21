@@ -4,6 +4,11 @@
 en:
   activerecord:
     attributes:
+      spree/currency_rate:
+        base_currency: Base Currency
+        currency: Currency
+        default: Default
+        exchange_rate: Exchange Rate
       spree/price_book:
         currency: Currency
         default: Default
@@ -15,6 +20,11 @@ en:
             currency:
               match_price_book: Must match price book currency.
     models:
+      spree/currency_rate:
+        one: Currency Rate
+        other: Currency Rates
       spree/price_book:
         one: Price Book
         other: Price Books
+  spree:
+    editing_currency_rate: Editing Currency Rate
