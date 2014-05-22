@@ -4,6 +4,10 @@
       <legend align="center"><%= Spree.t(:settings) %></legend>
 
       <div class="alpha six columns">
+        <div data-hook="base_currency" class="field">
+          <%= f.label :base_currency %>
+          <%= f.text_field :base_currency, class: 'fullwidth' %>
+        </div>
         <div data-hook="currency" class="field">
           <%= f.label :currency, Spree.t(:currency) %>
           <%= f.text_field :currency, class: 'fullwidth' %>
@@ -13,10 +17,12 @@
           <%= f.text_field :exchange_rate, :class => 'fullwidth' %>
           <br/><span class="info"><%= Spree.t(:currency_rate_explanation) %></span>
         </div>
-        <div data-hook="default_rate" class="field">
-          <%= f.check_box :default %>
-          <%= f.label :default, Spree.t(:default) %>
-        </div>
+        <% if f.object.default? || Spree::CurrencyRate.default.new_record? %>
+          <div data-hook="default_rate" class="field">
+            <%= f.check_box :default %>
+            <%= f.label :default, Spree.t(:default) %>
+          </div>
+        <% end %>
       </div>
     </fieldset>
   </div>

@@ -16,5 +16,9 @@ module SpreePriceBooks
     end
 
     config.to_prepare &method(:activate).to_proc
+
+    initializer "spree_active_shipping.register.calculators" do |app|
+      app.config.spree.calculators.shipping_methods << Spree::Calculator::Shipping::FlatMultiCurrencyRate
+    end
   end
 end
