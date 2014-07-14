@@ -90,14 +90,14 @@ describe Spree::PriceBook do
       pb6 = create(:price_book, active_from: 1.day.ago, active_to: Time.zone.now)
       pb7 = create(:price_book, active_from: 1.day.ago, active_to: 1.second.from_now)
 
-      expect(default.active?).to be_true
-      expect(pb1.active?).to be_false
-      expect(pb2.active?).to be_true
-      expect(pb3.active?).to be_true
-      expect(pb4.active?).to be_false
-      expect(pb5.active?).to be_false
-      expect(pb6.active?).to be_true
-      expect(pb7.active?).to be_true
+      expect(default.active?).to be true
+      expect(pb1.active?).to be false
+      expect(pb2.active?).to be true
+      expect(pb3.active?).to be true
+      expect(pb4.active?).to be false
+      expect(pb5.active?).to be false
+      expect(pb6.active?).to be true
+      expect(pb7.active?).to be true
     end
   end
 
@@ -107,30 +107,30 @@ describe Spree::PriceBook do
 
   it '#discount_price_book?' do
     book = build :price_book, discount: true
-    expect(book.discount_price_book?).to be_true
+    expect(book.discount_price_book?).to be true
     book.discount = false
-    expect(book.discount_price_book?).to be_false
+    expect(book.discount_price_book?).to be false
   end
 
   it '#explicit?' do
     record = build :price_book, parent_id: nil
-    expect(record.explicit?).to be_true
+    expect(record.explicit?).to be true
     record.parent_id = 1
-    expect(record.explicit?).not_to be_true
+    expect(record.explicit?).not_to be true
   end
 
   it '#factored?' do
     record = build :price_book, parent_id: nil
-    expect(record.factored?).not_to be_true
+    expect(record.factored?).not_to be true
     record.parent_id = 1
-    expect(record.factored?).to be_true
+    expect(record.factored?).to be true
   end
 
   it '#list_price_book?' do
     book = build :price_book, discount: true
-    expect(book.list_price_book?).to be_false
+    expect(book.list_price_book?).to be false
     book.discount = false
-    expect(book.list_price_book?).to be_true
+    expect(book.list_price_book?).to be true
   end
 
   describe '#update_prices_with_adjustment_factor' do
@@ -170,7 +170,7 @@ describe Spree::PriceBook do
 
     it 'duplicates all prices from parent and factors them if they dont exist' do
       book  = build(:price_book, parent: parent_book, price_adjustment_factor: 1.1)
-      expect(book.prices.empty?).to be_true
+      expect(book.prices.empty?).to be true
       book.save
       book.reload
       expect(book.prices.size).to eql(2)
@@ -192,7 +192,7 @@ describe Spree::PriceBook do
     create(:currency_rate, base_currency: default_book.currency, currency: 'CAD', exchange_rate: 2)
     new_book = build :price_book, currency: 'CAD', parent: default_book, price_adjustment_factor: nil
 
-    expect(new_book.valid?).to be_true
+    expect(new_book.valid?).to be true
     expect(new_book.price_adjustment_factor).to eql(2.0)
   end
 

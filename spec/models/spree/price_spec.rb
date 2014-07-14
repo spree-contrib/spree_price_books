@@ -88,9 +88,9 @@ describe Spree::Price do
 
   it '#ensure_proper_currency' do
     record = build(:price, currency: 'GBP', price_book: create(:price_book))
-    expect(record.valid?).to be_false
+    expect(record.valid?).to be false
     record.currency = 'USD'
-    expect(record.valid?).to be_true
+    expect(record.valid?).to be true
   end
 
   describe '#populate_children' do
