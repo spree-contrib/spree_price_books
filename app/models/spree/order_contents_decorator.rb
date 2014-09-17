@@ -16,8 +16,8 @@ module Spree
         line_item                 = order.line_items.new(quantity: quantity, variant: variant)
         line_item.target_shipment = shipment
         line_item.currency        = currency
-        line_item.list_price      = variant.list_price_in(currency).amount # This is main reason we override this method.
-        line_item.price           = variant.price_in(currency).amount
+        line_item.list_price      = variant.list_price_in(currency, order.store, order.user.try(:price_book_role_ids)).amount
+        line_item.price           = variant.price_in(currency, order.store, order.user.try(:price_book_role_ids)).amount
       end
       line_item.save
       line_item
