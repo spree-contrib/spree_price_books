@@ -9,7 +9,7 @@ Installation
 Add spree_price_books to your Gemfile:
 
 ```ruby
-gem 'spree_price_books', github: 'surfdome/spree_price_books'
+gem 'spree_price_books', github: 'spree-contrib/spree_price_books'
 ```
 
 Bundle your dependencies and run the installation generator:
