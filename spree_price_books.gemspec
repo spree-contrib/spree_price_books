@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.required_ruby_version = '>= 2.0.0'
 
   s.author    = 'Jeff Dutil'
-  s.email     = 'JDutil@BurlingtonWebApps.com'
+  s.email     = 'JDutil@spreecommerce.com'
   s.homepage  = 'http://www.spreecommerce.com'
 
   s.files       = `git ls-files`.split("\n")
@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
   s.requirements << 'none'
 
   s.add_dependency 'google_currency'
-  s.add_dependency 'spree_core', '~> 2.3.0'
+  s.add_dependency 'spree_core', '~> 2.4.0'
   s.add_dependency 'validates_timeliness', '~> 3.0'
 
   s.add_development_dependency 'capybara', '~> 2.1'
