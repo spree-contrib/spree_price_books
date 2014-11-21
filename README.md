@@ -47,4 +47,9 @@ Simply add this require statement to your spec_helper:
 require 'spree_price_books/factories'
 ```
 
+Credit
+------
+
+http://www.surfdome.com/ for sponsoring the project.
+
 Copyright (c) 2014 Jeff Dutil, released under the New BSD License
