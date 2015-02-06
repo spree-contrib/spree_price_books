@@ -7,4 +7,8 @@ Spree::Store.class_eval do
 
   has_many :store_price_books
 
+  def supported_currencies
+    price_books.pluck(:currency).uniq
+  end
+
 end
