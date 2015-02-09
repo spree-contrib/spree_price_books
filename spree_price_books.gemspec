@@ -2,7 +2,7 @@
 Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.name        = 'spree_price_books'
-  s.version     = '2.3.0.beta'
+  s.version     = '2.4.0'
   s.summary     = 'Price books allowing flexible product pricing.'
   s.description = s.summary
   s.required_ruby_version = '>= 2.0.0'
@@ -25,7 +25,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'database_cleaner'
   s.add_development_dependency 'factory_girl', '~> 4.4'
   s.add_development_dependency 'ffaker'
-  s.add_development_dependency 'pg'
+  # s.add_development_dependency 'pg' # don't require postgress as some users use mysql
   s.add_development_dependency 'rspec-rails',  '~> 2.13'
   s.add_development_dependency 'sass-rails', '~> 4.0.2'
   s.add_development_dependency 'selenium-webdriver'
