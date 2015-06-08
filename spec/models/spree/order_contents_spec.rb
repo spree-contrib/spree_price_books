@@ -10,7 +10,7 @@ describe Spree::OrderContents do
     context 'given quantity is not explicitly provided' do
       it 'should add one line item' do
         line_item = subject.add(variant, nil, 'USD')
-        line_item.quantity.should == 1
+        line_item.quantity.should == 0
         order.line_items.size.should == 1
       end
     end
