@@ -30,6 +30,8 @@ bundle exec rake price_books:currency_rates
 
 Or configure from within the admin panels configuration tab.
 
+The default currency for the store must match the default price books currency.
+
 Testing
 -------
 
