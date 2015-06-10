@@ -9,14 +9,16 @@ describe "Prices" do
   let!(:product) { create(:product, name: 'apache baseball cap', price: 10) }
 
   before(:each) do
-    visit spree.admin_path
-    click_link "Products"
-    within_row(1) { click_icon :edit }
+    visit spree.admin_products_path  
+    within_row(1) do 
+      find('td:nth-child(3) a').click()
+    end
   end
 
   context "#product without variants" do
     before do
       within '[data-hook=admin_product_tabs]' do
+      #within 'aside#sidebar' do
         click_link "Price Books"
       end
     end
