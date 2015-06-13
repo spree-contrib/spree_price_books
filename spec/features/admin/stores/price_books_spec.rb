@@ -13,7 +13,8 @@ describe "Store Management - Price Books", js: true do
       @pb1 = Spree::PriceBook.default
       @pb2 = create(:price_book, name: 'Second Created')
       @pb3 = create(:price_book, name: 'Third Created')
-      visit spree.edit_admin_general_settings_path
+      visit spree.admin_path
+      click_link "Configurations"
       click_link 'Stores & Domains'
     end
 
@@ -36,7 +37,8 @@ describe "Store Management - Price Books", js: true do
       @pb1 = Spree::PriceBook.default
       @pb2 = create(:price_book, name: 'Second Created')
       @pb3 = create(:price_book, name: 'Third Created')
-      visit spree.edit_admin_general_settings_path
+      visit spree.admin_path
+      click_link "Configurations"
       click_link 'Stores & Domains'
       store_2.price_books = [@pb1, @pb2]
     end

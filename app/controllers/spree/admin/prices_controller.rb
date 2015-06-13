@@ -1,6 +1,8 @@
 module Spree
   module Admin
-    class PricesController < Spree::Admin::BaseController
+    class PricesController  < ResourceController
+      belongs_to 'spree/product', find_by: :slug
+
       def update
         params[:variant].each_pair do |id, amount_hash|
           next if amount_hash[:amount].blank?

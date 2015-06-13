@@ -36,14 +36,14 @@ describe "Price Books", js: true do
 
     it 'displays proper price when currency changed' do
       visit spree.nested_taxons_path(taxon.permalink)
-      within '#products li' do
+      within '#products span.price' do
         expect(page).to have_content('£19.99')
       end
 
       select 'USD', from: 'currency'
       wait_for_ajax
 
-      within '#products li' do
+      within '#products span.price' do
         expect(page).to have_content('$49.98')
       end
     end
@@ -58,7 +58,7 @@ describe "Price Books", js: true do
 
     it 'should display list and sale price' do
       visit spree.nested_taxons_path(taxon.permalink)
-      within '#products li' do
+      within '#products span.price' do
         expect(page).to have_content('£19.99')
       end
 
@@ -66,7 +66,7 @@ describe "Price Books", js: true do
       wait_for_ajax
 
       # On products#index page
-      within '#products li' do
+      within '#products div.product-list-item' do
         expect(page).to have_content('$24.99')
         find('a').click
       end
