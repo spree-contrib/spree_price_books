@@ -1,5 +1,5 @@
 <% if @products.any? %>
-  <table class="index" id="listing_products">
+  <table class="table" id="listing_products">
     <colgroup>
        <col style="width: 15%;">
        <col style="width: 10%;">
@@ -44,7 +44,7 @@
     </tbody>
   </table>
 <% else %>
-  <div class="alpha twelve columns no-objects-found">
+  <div class="alert alert-info no-objects-found">
     <%= Spree.t(:no_resource_found,
       resource: I18n.t(:other, scope: 'activerecord.models.spree/product')) %>,
     <%= link_to Spree.t(:add_some), spree.add_products_admin_price_book_path(@price_book) %>!

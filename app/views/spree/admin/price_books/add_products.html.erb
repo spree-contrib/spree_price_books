@@ -17,9 +17,9 @@
     <% end %>
   <div class="pagination_links_bottom"><%= paginate @products %></div>
   <% else %>
-    <div class="alpha twelve columns no-objects-found">
+    <div class="alert alert-info no-objects-found">
       <%= Spree.t(:no_resource_found,
         resource: I18n.t(:other, scope: 'activerecord.models.spree/product')) %>
-    </div>
+   </div>
   <% end %>
 <% end %>

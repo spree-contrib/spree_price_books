@@ -3,17 +3,13 @@
 <% end %>
 
 <% content_for :page_actions do %>
-  <li id="new_pb_link">
-    <%= button_link_to Spree.t(:new_price_book), new_admin_price_book_url, { :remote => true, :icon => 'icon-plus', :id => 'new_price_book_link' } %>
-  </li>
+    <%= button_link_to Spree.t(:new_price_book), new_admin_price_book_url, { :remote => true, :class => "btn-success", :icon => 'add', :id => 'new_price_book_link' } %>
 <% end %>
-
-<%= render :partial => 'spree/admin/shared/sub_menu/product' %>
 
 <div id="price_book_form_wrapper"></div>
 
 <% if @price_books.any? %>
-<table class="index sortable" id="listing_price_bookss" data-hook data-sortable-link="<%= update_positions_admin_option_types_url %>">
+<table class="table table-striped" id="listing_price_books" data-hook data-sortable-link="<%= update_positions_admin_option_types_url %>">
   <colgroup>
     <col style="width: 5%">
     <col style="width: 30%">
@@ -36,7 +32,7 @@
   </thead>
   <tbody>
     <% @price_books.each do |price_book| %>
-      <tr class="spree_price_book <%= cycle('odd', 'even')%>" id="<%= spree_dom_id price_book %>" data-hook="option_row">
+      <tr class="spree_price_book" id="<%= spree_dom_id price_book %>" data-hook="option_row">
         <td class="align-center"><%= price_book.priority %></td>
         <td class="align-center"><%= link_to price_book.name, admin_price_book_url(price_book) %></td>
         <td class="align-center"><%= price_book.currency %></td>
@@ -52,7 +48,7 @@
   </tbody>
 </table>
 <% else %>
-  <div class="alpha twelve columns no-objects-found">
+  <div class="alert alert-info no-objects-found">
     <%= Spree.t(:no_resource_found, resource: I18n.t(:other, scope: 'activerecord.models.spree/price_book')) %>,
     <%= link_to Spree.t(:add_one), spree.new_admin_price_book_path %>!
   </div>

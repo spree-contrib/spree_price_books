@@ -5,10 +5,8 @@
 
 <% content_for :page_actions do %>
   <% if can? :create, Spree::CurrencyRate %>
-    <li>
-      <%= button_link_to Spree.t(:new_currency_rate), new_object_url, icon: 'plus' %>
-    </li>
-    <% end %>
+      <%= button_link_to Spree.t(:new_currency_rate), new_object_url, { :class => "btn-success", :icon => 'add' } %>
+  <% end %>
 <% end %>
 
 <% if @currency_rates.any? %>
@@ -45,8 +43,8 @@
     </tbody>
   </table>
 <% else %>
-  <div class="alpha twelve columns no-objects-found">
+  <div class="alert alert-info no-objects-found">
     <%= Spree.t(:no_resource_found, resource: I18n.t(:other, scope: 'activerecord.models.spree/currency_rate')) %>,
     <%= link_to Spree.t(:add_one), spree.new_admin_currency_rate_path %>!
-  </div>
+  </div>  
 <% end %>

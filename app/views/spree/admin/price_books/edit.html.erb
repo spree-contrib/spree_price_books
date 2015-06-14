@@ -1,22 +1,18 @@
-<%= render :partial => 'spree/admin/shared/sub_menu/product' %>
+<%#= render :partial => 'spree/admin/shared/sub_menu/product' %>
 
 <% content_for :page_title do %>
-  <%= Spree.t(:editing_price_book) %> <span class="green">"<%= @price_book.name %>"</span>
+  <%= Spree.t(:editing_price_book,resource: Spree::Property.model_name.human) %> <span class="green">"<%= @price_book.name %>"</span>
 <% end %>
 
 <% content_for :page_actions do %>
-  <li>
-    <%= button_link_to Spree.t(:back_to_price_books_list), spree.admin_price_books_path, :icon => 'icon-arrow-left' %>
-  </li>
+    <%= button_link_to Spree.t(:back_to_price_books_list), spree.admin_price_books_path, :class => 'btn btn-success', :icon => 'arrow-left' %>
 <% end %>
 
 <%= render :partial => 'spree/shared/error_messages', :locals => { :target => @price_book } %>
 
-<div id="price_book_form_wrapper">
-  <%= form_for [:admin, @price_book] do |f| %>
-    <fieldset>
-      <%= render :partial => 'form', :locals => { :f => f } %>
-      <%= render :partial => 'spree/admin/shared/edit_resource_links' %>
-    </fieldset>
-  <% end %>
-</div>
+<%= form_for [:admin, @price_book] do |f| %>
+  <fieldset>
+    <%= render :partial => 'form', :locals => { :f => f } %>
+    <%= render :partial => 'spree/admin/shared/edit_resource_links' %>
+  </fieldset>
+<% end %>

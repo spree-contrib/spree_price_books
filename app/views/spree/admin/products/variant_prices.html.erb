@@ -1,5 +1,5 @@
 <%= render :partial => 'spree/admin/shared/sub_menu/product' %>
-<%= render :partial => 'spree/admin/shared/product_tabs', :locals => { :current => 'Prices' } %>
+<%= render :partial => 'spree/admin/shared/product_tabs', :locals => { :current => 'Price Books' } %>
 
 <%# did we get her via redirect? %>
 <% if @current_price_book.nil? %>
@@ -12,7 +12,7 @@
     <%= select_tag :price_book_id, options_for_select(@price_books.map {|pb| ["#{pb.name} (#{pb.currency})", pb.id]}, @current_price_book.id) %>
   </div>
 
-  <table class="index">
+  <table class="table">
     <colgroup>
       <col style="width: 70%" />
       <col style="width: 15%" />
@@ -36,9 +36,9 @@
           <% else %>
             <%# forgot the magic secret to dynamically determine the class name without it being treated as html_unsafe :-( %>
             <% if variant.is_master?  %>
-              <%= text_field_tag "variant[#{variant.id}][amount]", @prices[variant.id].try(:amount), :class => 'fullwidth master' %>
+              <%= text_field_tag "variant[#{variant.id}][amount]", @prices[variant.id].try(:amount), :class => 'master' %>
             <% else %>
-              <%= text_field_tag "variant[#{variant.id}][amount]", @prices[variant.id].try(:amount), :class => 'fullwidth' %>
+              <%= text_field_tag "variant[#{variant.id}][amount]", @prices[variant.id].try(:amount), :class => '' %>
             <% end %>
           <% end %>
         </td>
@@ -47,12 +47,12 @@
     </tbody>
   </table>
 
-  <div class="form-buttons filter-actions actions" data-hook="buttons">
-    <%= button Spree.t('actions.update'), 'icon-refresh' %>
+  <div class="form-actions" data-hook="buttons">
+    <%= button Spree.t('actions.update'), 'refresh', 'submit', {class: 'btn-success'} %>
     <span class="or"><%= Spree.t(:or) %></span>
-    <%= button_link_to Spree.t('actions.cancel'), spree.admin_product_url(@product), :icon => 'icon-remove' %>
-  </div>
-  
+   <%= button_link_to Spree.t('actions.cancel'), spree.admin_product_url(@product), icon: 'remove' %>
+ </div>
+
   <%# this is horrible Jeff S.  Why didn't you just keep the product in the route? %>
   <%= hidden_field_tag :product_id, @product.id %> <%# due to the goofy way i chose to do my routing/redirecting %>
 </form>
