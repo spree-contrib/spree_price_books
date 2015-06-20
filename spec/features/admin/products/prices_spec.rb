@@ -9,9 +9,10 @@ describe "Prices" do
   let!(:product) { create(:product, name: 'apache baseball cap', price: 10) }
 
   before(:each) do
-    visit spree.admin_path
-    click_link "Products"
-    within_row(1) { click_icon :edit }
+    visit spree.admin_products_path  
+    within_row(1) do 
+      find('td:nth-child(3) a').click()
+    end
   end
 
   context "#product without variants" do
@@ -39,8 +40,8 @@ describe "Prices" do
     end
 
     it "shows the master variant as the only variant in the prices table" do
-      page.all('table.index tbody tr').count.should == 1
-      find('table.index tbody tr td:nth-child(1)').should have_text "Master"
+      page.all('table.table tbody tr').count.should == 1
+      find('table.table tbody tr td:nth-child(1)').should have_text "Master"
     end
 
     it "navigates to the product detail page when canceling" do
@@ -55,11 +56,11 @@ describe "Prices" do
       end
 
       it "lists the prices in text fields", js: true do
-        page.all('table.index tbody tr td input[type=text]').count.should == product.variants_including_master.size
+        page.all('table.table tbody tr td input[type=text]').count.should == product.variants_including_master.size
       end
 
       it "allows the prices to be modified", js: true do
-        within('table.index tbody tr td:nth-child(3)') do
+        within('table.table tbody tr td:nth-child(3)') do
           find('input').set('123')
         end
         click_button 'Update'
@@ -76,8 +77,8 @@ describe "Prices" do
       end
 
       it "lists the prices as read-only", js: true do
-        page.all('table.index tbody tr td input[type=text]').count.should == 0
-        find('table.index tbody tr td:nth-child(3)').should have_text(factored_price_book.prices.find_by_variant_id(product.master).amount)
+        page.all('table.table tbody tr td input[type=text]').count.should == 0
+        find('table.table tbody tr td:nth-child(3)').should have_text(factored_price_book.prices.find_by_variant_id(product.master).amount)
       end
     end
 
@@ -92,17 +93,17 @@ describe "Prices" do
       end
 
       it "lists each variant in the prices tabale" do
-        page.all('table.index tbody tr').count.should == product.variants_including_master.size
+        page.all('table.table tbody tr').count.should == product.variants_including_master.size
       end
 
       it "lists the master variant first in the prices table" do
-        within('table.index tbody tr') do
+        within('table.table tbody tr') do
           find('td:nth-child(1)').should have_text "Master"
         end
       end
 
       it "copies the master price to empty variant prices", js: true do
-        within('table.index tbody') do
+        within('table.table tbody') do
           # empty one of the non-master prices
           within('tr:nth-child(2) td:nth-child(3)') do
             find('input').set('')

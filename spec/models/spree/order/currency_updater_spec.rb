@@ -9,7 +9,7 @@ describe Spree::Order do
           variant: line_item.variant,
           amount: 8,
           currency: 'EUR',
-          price_book: create(:active_price_book, currency: 'EUR', discount: true, priority: 1)
+          price_book: create(:store_price_book, currency: 'EUR', discount: true, priority: 1, stores: [Spree::Store.default])
         )
       }
       let!(:euro_list_price) {
@@ -17,7 +17,7 @@ describe Spree::Order do
           variant: line_item.variant,
           amount: 18,
           currency: 'EUR',
-          price_book: create(:active_price_book, currency: 'EUR', discount: false, priority: 0)
+          price_book: create(:store_price_book, currency: 'EUR', discount: false, priority: 0, stores: [Spree::Store.default])
         )
       }
 

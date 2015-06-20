@@ -16,7 +16,6 @@ end
 
 desc 'Generates a dummy app for testing'
 task :test_app do
-  ENV['DB'] = 'postgres'
   ENV['LIB_NAME'] = 'spree_price_books'
   Rake::Task['extension:test_app'].invoke
 end

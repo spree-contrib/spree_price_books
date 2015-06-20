@@ -22,7 +22,7 @@ class Spree::PriceBook < ActiveRecord::Base
   after_update :update_prices_with_adjustment_factor, if: :price_adjustment_factor_changed?
 
   scope :active, -> {
-    where("#{table_name}.default = ? OR (#{table_name}.active_from <= ? AND (#{table_name}.active_to IS NULL OR #{table_name}.active_to >= ?))",
+    where(%Q(#{table_name}."default" = ? OR (#{table_name}.active_from <= ? AND (#{table_name}.active_to IS NULL OR #{table_name}.active_to >= ?))),
       true, Time.zone.now, Time.zone.now)
   }
   scope :by_currency, -> (currency_iso) { where(currency: currency_iso).prioritized }

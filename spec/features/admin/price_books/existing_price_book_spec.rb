@@ -6,9 +6,9 @@ describe "Price Books - Existing" do
   before(:each) do
     Spree::PriceBook.default
     create :price_book
-    visit spree.admin_price_books_path
-    within('.main-menu-wrapper') { click_link "Products" }
-    click_link "Price Books"
+    visit spree.admin_path
+    click_link "Products"
+    click_link "Price Books" 
   end
 
   it "can read a PriceBook" do
@@ -18,7 +18,7 @@ describe "Price Books - Existing" do
   end
 
   it "can update a PriceBook" do
-    find('.admin_edit_price_book:last-child').click
+    find('#spree_price_book_1 td.actions a').click
 
     fill_in 'price_book_name', with: 'TEST'
     select 'GEL', from: 'price_book_currency'
@@ -31,7 +31,7 @@ describe "Price Books - Existing" do
   end
 
   it "can remove a PriceBook", js: true do
-    click_icon :trash
+    click_icon :delete
     page.driver.browser.switch_to.alert.accept
     wait_for_ajax
 

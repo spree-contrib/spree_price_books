@@ -4,6 +4,7 @@ module Spree
   module Calculator::Shipping
     describe FlatMultiCurrencyRate do
       let!(:currency_rate) { create :currency_rate, currency: 'GBP', exchange_rate: 0.75 }
+      let(:order) { build(:order, currency: 'GBP') }
       let(:variant1) { build(:variant) }
       let(:variant2) { build(:variant) }
 
@@ -13,12 +14,9 @@ module Spree
         let(:package) do
           Stock::Package.new(
             build(:stock_location),
-            mock_model(Order, currency: 'GBP'),
-            [
-              Stock::Package::ContentItem.new(variant1, 2),
-              Stock::Package::ContentItem.new(variant2, 1)
-            ]
-          )
+              [Stock::ContentItem.new(build(:inventory_unit, variant: variant1, order: order)),
+               Stock::ContentItem.new(build(:inventory_unit, variant: variant2, order: order))]
+          )          
         end
 
         it 'always returns the same rate for base currency' do
@@ -30,11 +28,8 @@ module Spree
         let(:package) do
           Stock::Package.new(
             build(:stock_location),
-            mock_model(Order, currency: Spree::Config[:currency]),
-            [
-              Stock::Package::ContentItem.new(variant1, 2),
-              Stock::Package::ContentItem.new(variant2, 1)
-            ]
+              [Stock::ContentItem.new(build(:inventory_unit, variant: variant1)),
+               Stock::ContentItem.new(build(:inventory_unit, variant: variant2))]
           )
         end
 

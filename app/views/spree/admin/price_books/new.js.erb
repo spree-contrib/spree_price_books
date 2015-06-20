@@ -1,4 +1,5 @@
 $("#price_book_form_wrapper").html('<%= escape_javascript(render :partial => "spree/admin/price_books/new", :formats => [:html], :handlers => [:erb]) %>');
+$('.datepicker').datepicker();
 $("#new_price_book_link").parent().hide();
 $("form#new_price_book fieldset").prepend('<legend align="center"><%= escape_javascript(Spree.t(:new_price_book)) %></legend>');
 $("#price_book_parent_id").change();

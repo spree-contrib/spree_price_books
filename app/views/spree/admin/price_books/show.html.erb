@@ -4,23 +4,19 @@
 <% end %>
 
 <% content_for :page_actions do %>
-  <li id="edit_pb_link">
     <%= button_link_to Spree.t(:edit_price_book),
       spree.edit_admin_price_book_url,
-      { :icon => 'icon-edit', :id => 'edit_price_book_link' } %>
-  </li>
+      { :class => 'btn btn-success', :icon => 'edit', :id => 'edit_price_book_link' } %>
   <% if @price_book.explicit? %>
-  <li id="add_products_pb_link">
     <%= button_link_to Spree.t(:add_products),
       spree.add_products_admin_price_book_path(@price_book),
-      { :icon => 'icon-plus', :id => 'add_products_price_book_link' } %>
-  </li>
+      { :icon => 'plus', :id => 'add_products_price_book_link' } %>
   <% end %>
 <% end %>
 
-<%= render :partial => 'spree/admin/shared/product_sub_menu' %>
+<%= render :partial => 'spree/admin/shared/sub_menu/product' %>
 
-<table class="index" id="listing_price_book_attributes" data-hook>
+<table class="table table-striped" id="listing_price_book_attributes" data-hook>
   <colgroup>
     <col style="width: 25%">
     <col style="width: 75%">

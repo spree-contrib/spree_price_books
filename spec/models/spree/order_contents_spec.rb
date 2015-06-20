@@ -9,21 +9,21 @@ describe Spree::OrderContents do
   context "#add" do
     context 'given quantity is not explicitly provided' do
       it 'should add one line item' do
-        line_item = subject.add(variant, nil, 'USD')
-        line_item.quantity.should == 1
+        line_item = subject.add(variant, nil, {currency: 'USD'})
+        line_item.quantity.should == 0
         order.line_items.size.should == 1
       end
     end
 
     it 'should add line item if one does not exist' do
-      line_item = subject.add(variant, 1, 'USD')
+      line_item = subject.add(variant, 1, {currency: 'USD'})
       line_item.quantity.should == 1
       order.line_items.size.should == 1
     end
 
     it 'should update line item if one exists' do
-      subject.add(variant, 1, 'USD')
-      line_item = subject.add(variant, 1, 'USD')
+      subject.add(variant, 1, {currency: 'USD'})
+      line_item = subject.add(variant, 1, {currency: 'USD'})
       line_item.quantity.should == 2
       order.line_items.size.should == 1
     end
@@ -32,7 +32,7 @@ describe Spree::OrderContents do
       order.item_total.to_f.should == 0.00
       order.total.to_f.should == 0.00
 
-      subject.add(variant, 1, 'USD')
+      subject.add(variant, 1, {currency: 'USD'})
 
       order.item_total.to_f.should == 19.99
       order.total.to_f.should == 19.99
@@ -43,7 +43,7 @@ describe Spree::OrderContents do
       let(:calculator) { Spree::Calculator::FlatRate.new(:preferred_amount => 10) }
 
       shared_context "discount changes order total" do
-        before { subject.add(variant, 1, 'USD') }
+        before { subject.add(variant, 1, {currency: 'USD'}) }
         it { expect(subject.order.total).not_to eq variant.price }
       end
 
@@ -51,7 +51,7 @@ describe Spree::OrderContents do
         let!(:action) { Spree::Promotion::Actions::CreateAdjustment.create(promotion: promotion, calculator: calculator) }
 
         it "creates valid discount on order" do
-          subject.add(variant, 1, 'USD')
+          subject.add(variant, 1, {currency: 'USD'})
           expect(subject.order.adjustments.to_a.sum(&:amount)).not_to eq 0
         end
 
@@ -62,7 +62,7 @@ describe Spree::OrderContents do
         let!(:action) { Spree::Promotion::Actions::CreateItemAdjustments.create(promotion: promotion, calculator: calculator) }
 
         it "creates valid discount on order" do
-          subject.add(variant, 1, 'USD')
+          subject.add(variant, 1, {currency: 'USD'})
           expect(subject.order.line_item_adjustments.to_a.sum(&:amount)).not_to eq 0
         end
 

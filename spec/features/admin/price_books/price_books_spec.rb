@@ -5,7 +5,8 @@ describe "PriceBooks Feature", js: true do
 
   before do
     Spree::PriceBook.default
-    visit spree.admin_products_path
+    visit spree.admin_path
+    click_link "Products"
     click_link "Price Books"
   end
 
