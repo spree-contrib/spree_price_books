@@ -1,0 +1,44 @@
+ru:
+  activerecord:
+    attributes:
+      spree/currency_rate:
+        base_currency: Базовая Валюта
+        currency: Валюта
+        default: По умолчанию
+        exchange_rate: Курс обмена
+      spree/price_book:
+        name: Название
+        active_from: Активно с
+        active_to: Активно до
+        currency: Валюта
+        default: По умолчанию
+        priority: Приоритет
+        role: Роль
+        discount: Скидка?
+        parent: Родительское ценовое правило
+        price_adjustment_factor: Коэффициент корректировки цены
+    errors:
+      models:
+        spree/price:
+          attributes:
+            currency:
+              match_price_book: Must match price book currency.
+    models:
+      spree/currency_rate:
+        one: Курс обмена
+        few: Курсы обмена
+        many: Курсы обмена
+        other: Курсы обмена
+      spree/price_book:
+        one: Ценовое правило
+        few: Ценовые правила
+        many: Ценовые правила
+        other: Ценовые правила
+  spree:
+    new_currency_rate: Новый курс обмена
+    default_price: Цена по умолчанию
+    new_price_book: Новое ценовое правило
+    back_to_price_books_list: Назад к ценовым правилам
+    back_to_currency_rates_list: Назад к курсам обмена
+    editing_currency_rate: Редактирование курса обмена
+    editing_price_book: Редактирование ценового правила
