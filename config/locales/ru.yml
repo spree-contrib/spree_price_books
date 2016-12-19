@@ -14,6 +14,7 @@ ru:
         default: По умолчанию
         priority: Приоритет
         role: Роль
+        role_id: Роль
         discount: Скидка?
         parent: Родительское ценовое правило
         price_adjustment_factor: Коэффициент корректировки цены
