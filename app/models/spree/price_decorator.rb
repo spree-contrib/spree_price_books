@@ -20,6 +20,18 @@ Spree::Price.class_eval do
   scope :list, -> { prioritized.where(spree_price_books: { discount: false }) }
   scope :prioritized, -> { includes(:price_book).order('spree_price_books.priority DESC, spree_prices.amount ASC') }
 
+  #### Hack to allow negative priced product
+  # overriding greater than zero price validation from core in Spree::Price model
+  # removes line from model in core:  validates :amount, numericality: { greater_than_or_equal_to: 0 }, allow_nil: true
+  amount_numericality_validator = _validators[:amount].find { |v| v.is_a?(ActiveModel::Validations::NumericalityValidator)}
+  _validators[:amount].reject! {|val| val == amount_numericality_validator }
+  _validate_callbacks.instance_variable_get(:@chain).reject! do |callback|
+    callback.filter == amount_numericality_validator
+  end
+  # replace with new numericality validator
+  validates :amount, numericality: true, allow_nil: true
+
+
   private
 
   def ensure_price_book
