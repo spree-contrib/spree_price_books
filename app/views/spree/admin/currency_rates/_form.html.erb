@@ -6,16 +6,17 @@
       <div class="alpha six columns">
         <div data-hook="base_currency" class="field">
           <%= f.label :base_currency %>
-          <%= f.text_field :base_currency, class: 'fullwidth' %>
+          <%= f.text_field :base_currency, class: 'form-control' %>
         </div>
         <div data-hook="currency" class="field">
           <%= f.label :currency, Spree.t(:currency) %>
-          <%= f.text_field :currency, class: 'fullwidth' %>
+          <%= f.text_field :currency, class: 'form-control' %>
         </div>
         <div data-hook="exchange_rate" class="field">
-          <%= f.label :exchange_rate, Spree.t(:exchange_rate) %>
-          <%= f.text_field :exchange_rate, :class => 'fullwidth' %>
-          <br/><span class="info"><%= Spree.t(:currency_rate_explanation) %></span>
+          <%= f.label :exchange_rate %>
+          <%= f.text_field :exchange_rate, :class => 'form-control' %>
+          <br/>
+          <!--<span class="info"><%= Spree.t(:currency_rate_explanation) %></span>-->
         </div>
         <% if f.object.default? || Spree::CurrencyRate.default.new_record? %>
           <div data-hook="default_rate" class="field">

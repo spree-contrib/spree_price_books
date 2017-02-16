@@ -12,6 +12,7 @@ en:
       spree/price_book:
         currency: Currency
         default: Default
+        priority: Priority
         price_adjustment_factor: Factor
     errors:
       models:
@@ -27,4 +28,8 @@ en:
         one: Price Book
         other: Price Books
   spree:
+    default_price: Default price
+    new_price_book: New Price Book
+    back_to_price_books_list: Back to price books
     editing_currency_rate: Editing Currency Rate
+    editing_price_book: Editing Price Book

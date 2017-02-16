@@ -1,5 +1,5 @@
 <!-- insert_bottom "[data-hook='admin_product_tabs']" -->
 
 <li<%== ' class="active"' if current == "Prices" %>>
-  <%= link_to_with_icon 'icon-picture', Spree::PriceBook.model_name.human(:count => 2), spree.variant_prices_admin_product_url(@product) %>
+  <%= link_to_with_icon 'list', Spree::PriceBook.model_name.human(:count => 2), spree.variant_prices_admin_product_url(@product) %>
 </li>

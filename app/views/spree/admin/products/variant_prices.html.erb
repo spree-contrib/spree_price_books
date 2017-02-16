@@ -1,4 +1,4 @@
-<%= render :partial => 'spree/admin/shared/product_sub_menu' %>
+<%#= render :partial => 'spree/admin/shared/product_sub_menu' %>
 <%= render :partial => 'spree/admin/shared/product_tabs', :locals => { :current => 'Prices' } %>
 
 <%# did we get her via redirect? %>
@@ -12,7 +12,7 @@
     <%= select_tag :price_book_id, options_for_select(@price_books.map {|pb| ["#{pb.name} (#{pb.currency})", pb.id]}, @current_price_book.id) %>
   </div>
 
-  <table class="index">
+  <table class="table">
     <colgroup>
       <col style="width: 70%" />
       <col style="width: 15%" />
@@ -29,7 +29,7 @@
     <% @variants.each do |variant| %>
       <tr id="<%= spree_dom_id variant %>" <%= 'style="color:red;"' if variant.deleted? %> data-hook="variants_row" class="<%= cycle('odd', 'even')%>">
         <td><%= variant.is_master? ? 'Master' : variant.options_text %></td>
-        <td class="align-center"><%= Spree::Money.new(variant.default_price.amount, currency: variant.default_price.currency) %></td>
+        <td class="align-center"><%= Spree::Money.new(variant.default_price.try(:amount), currency: variant.default_price.try(:currency)) %></td>
         <td class="align-center">
           <% if @current_price_book.factored? %>
             <%= Spree::Money.new(@prices[variant.id].amount, currency: @prices[variant.id].currency) %>
@@ -52,9 +52,7 @@
     <span class="or"><%= Spree.t(:or) %></span>
     <%= button_link_to Spree.t('actions.cancel'), spree.admin_product_url(@product), :icon => 'icon-remove' %>
   </div>
-  
+
   <%# this is horrible Jeff S.  Why didn't you just keep the product in the route? %>
   <%= hidden_field_tag :product_id, @product.id %> <%# due to the goofy way i chose to do my routing/redirecting %>
 </form>
-
-

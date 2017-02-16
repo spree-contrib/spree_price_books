@@ -1,79 +1,79 @@
 <div data-hook="admin_price_book_form_fields">
 
   <div class="row">
-    <div class="alpha eight columns">
+    <div class="col-md-6">
       <%= f.field_container :name do %>
         <%= f.label :name %> <span class="required">*</span><br />
-        <%= f.text_field :name, class: "fullwidth" %>
+        <%= f.text_field :name, class: "form-control" %>
         <%= f.error_message_on :name %>
       <% end %>
     </div>
+  </div>
 
-    <div class="omega eight columns">
-      <div class="field">
+    <div class="row">
+      <div class="col-md-6">
         <%= f.label :currency, Spree.t(:choose_currency) %> <span class="required">*</span><br />
-        <%= f.select :currency, pb_currency_options(f.object.currency), class: 'fullwidth select2' %>
+        <%= f.select :currency, pb_currency_options(f.object.currency), class: 'form-control select2' %>
         <%= f.error_message_on :currency %>
       </div>
     </div>
-  </div>
 
   <div class="row">
-    <div class="alpha four columns">
+    <div class="col-md-6">
       <%= f.field_container :active_from do %>
         <%= f.label :active_from %> <span class="required">*</span><br />
-        <%= f.text_field :active_from, class: 'datepicker datepicker-from' %>
+        <%= f.text_field :active_from, class: 'form-control datepicker datepicker-from' %>
         <%= f.error_message_on :active_from %>
       <% end %>
     </div>
 
-    <div class="four columns">
+    <div class="col-md-6">
       <%= f.field_container :active_to do %>
         <%= f.label :active_to %> <span class="required">*</span><br />
-        <%= f.text_field :active_to, class: 'datepicker datepicker-to' %>
+        <%= f.text_field :active_to, class: 'form-control datepicker datepicker-to' %>
         <%= f.error_message_on :active_to %>
       <% end %>
     </div>
 
-    <div class="four columns">
+    <div class="col-md-6">
       <%= f.field_container :role_id do %>
         <%= f.label :role_id %><br />
-        <%= f.collection_select :role_id, Spree::Role.all, :id, :name, { include_blank: true }, { class: 'fullwidth select2' } %>
+        <%= f.collection_select :role_id, Spree::Role.all, :id, :name, { include_blank: true }, { class: 'select2' } %>
         <%= f.error_message_on :role_id %>
       <% end %>
     </div>
 
-    <div class="omega four columns">
+    <div class="col-md-6">
       <%= f.field_container :priority do %>
         <%= f.label :priority %> <span class="required">*</span><br />
-        <%= f.text_field :priority, class: "fullwidth" %>
+        <%= f.text_field :priority, class: "form-control" %>
         <%= f.error_message_on :priority %>
       <% end %>
     </div>
   </div>
 
   <div class="row">
-    <div class="alpha four columns">
+    <div class="col-md-12">
       <%= f.field_container :parent do %>
-        <%= f.label :parent, Spree.t(:parent) %> <span class="required">*</span><br />
+        <%= f.label :parent %> <span class="required">*</span><br />
         <%= f.collection_select(:parent_id, Spree::PriceBook.all - [f.object], :id, :name,
-              include_blank: true, selected: Spree::PriceBook.default.id, class: 'fullwidth select2') %>
+              include_blank: true, selected: Spree::PriceBook.default.id, class: 'select2') %>
         <%= f.error_message_on :parent %>
       <% end %>
     </div>
-    <div class="four columns">
+    <div class="col-md-12">
       <%= f.field_container :price_adjustment_factor do %>
         <%= f.label :price_adjustment_factor %> <span class="required">*</span><br />
-        <%= f.text_field :price_adjustment_factor, class: 'fullwidth' %>
+        <%= f.text_field :price_adjustment_factor, class: 'form-control' %>
         <%= f.error_message_on :price_adjustment_factor %>
       <% end %>
     </div>
 
-    <div class="omega four columns">
+    <div class="col-md-12">
       <%= f.field_container :discount do %>
         <%= f.label :discount %><br />
         <%= f.check_box :discount %>
-        <%= f.error_message_on :priority %>
+        <%= f.error_message_on :discount %>
       <% end %>
     </div>
 

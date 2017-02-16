@@ -1,13 +1,11 @@
-<%= render :partial => 'spree/admin/shared/product_sub_menu' %>
+<%#= render :partial => 'spree/admin/shared/product_sub_menu' %>
 
 <% content_for :page_title do %>
   <%= Spree.t(:editing_price_book) %> <span class="green">"<%= @price_book.name %>"</span>
 <% end %>
 
 <% content_for :page_actions do %>
-  <li>
-    <%= button_link_to Spree.t(:back_to_price_books_list), spree.admin_price_books_path, :icon => 'icon-arrow-left' %>
-  </li>
+  <%= button_link_to Spree.t(:back_to_price_books_list), spree.admin_price_books_path, :icon => 'icon-arrow-left' %>
 <% end %>
 
 <%= render :partial => 'spree/shared/error_messages', :locals => { :target => @price_book } %>
