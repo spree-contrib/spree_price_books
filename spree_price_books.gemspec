@@ -2,14 +2,13 @@
 Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.name        = 'spree_price_books'
-  s.version     = '3.2.0'
+  s.version     = '3.1.0'
   s.summary     = 'Price books allowing flexible product pricing.'
   s.description = s.summary
   s.required_ruby_version = '>= 2.0.0'
 
-  s.author    = 'Jeff Dutil'
-  s.email     = 'JDutil@BurlingtonWebApps.com'
-  s.homepage  = 'http://www.spreecommerce.com'
+  s.author    = 'ajay'
+  s.email     = 'amajaymodi4@gmail.com'
 
   s.files       = `git ls-files`.split("\n")
   s.test_files  = `git ls-files -- {test,spec,features}/*`.split("\n")
@@ -17,7 +16,7 @@ Gem::Specification.new do |s|
   s.requirements << 'none'
 
   s.add_dependency 'google_currency'
-  s.add_dependency 'spree_core', '~> 3.2.0'
+  s.add_dependency 'spree_core', '~> 3.1.0'
   s.add_dependency 'validates_timeliness'
 
   s.add_development_dependency 'capybara'
@@ -27,7 +26,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'ffaker'
   s.add_development_dependency 'pg'
   s.add_development_dependency 'rspec-rails'
-  s.add_development_dependency 'sass-rails' 
+  s.add_development_dependency 'sass-rails'
   s.add_development_dependency 'selenium-webdriver'
   s.add_development_dependency 'simplecov'
   s.add_development_dependency 'sqlite3'
