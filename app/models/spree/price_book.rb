@@ -22,8 +22,11 @@ class Spree::PriceBook < ActiveRecord::Base
   after_update :update_prices_with_adjustment_factor, if: :price_adjustment_factor_changed?
 
   scope :active, -> {
-    where("#{table_name}.default = ? OR (#{table_name}.active_from <= ? AND (#{table_name}.active_to IS NULL OR #{table_name}.active_to >= ?))",
-      true, Time.zone.now, Time.zone.now)
+    default = Spree::PriceBook.arel_table[:default].eq(true)
+    from = Spree::PriceBook.arel_table[:active_from].lteq(Time.zone.now)
+    to = Spree::PriceBook.arel_table[:active_to].eq(nil)
+    active_to = Spree::PriceBook.arel_table[:active_to].gteq(Time.zone.now)
+    where(default.or(from).and(to).or(active_to))
   }
   scope :by_currency, -> (currency_iso) { where(currency: currency_iso).prioritized }
   scope :by_role, -> (role_ids) { where(role_id: role_ids) }

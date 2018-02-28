@@ -23,7 +23,7 @@ describe Spree::Order do
 
       context "#homogenize_line_item_currencies" do
         it "succeeds without error" do
-          expect { line_item.order.update_attributes!(currency: 'EUR') }.to_not raise_error
+          expect { line_item.order.update_attributes!(currency: 'USD') }.to_not raise_error
         end
 
         it "changes the line_item currencies" do

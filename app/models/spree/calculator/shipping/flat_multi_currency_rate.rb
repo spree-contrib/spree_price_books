@@ -21,7 +21,6 @@ module Spree
         if exchange_rate.nil?
           raise "CurrencyRateNotFound for #{preferred_base_currency} to #{package.order.currency}"
         end
-
         self.preferred_amount * exchange_rate
       end
 

@@ -1,7 +1,6 @@
 Spree::Price.class_eval do
 
   belongs_to :price_book
-
   has_many :store_price_books, through: :price_book
 
   validate :ensure_proper_currency
@@ -19,6 +18,10 @@ Spree::Price.class_eval do
   scope :by_store, -> (store_id) { joins(:store_price_books).where(spree_store_price_books: { store_id: store_id }) }
   scope :list, -> { prioritized.where(spree_price_books: { discount: false }) }
   scope :prioritized, -> { includes(:price_book).order('spree_price_books.priority DESC, spree_prices.amount ASC') }
+
+  # def store_price_books_by_store(store_id)
+  #   price_book.store_price_books.where(store_id: store_id).first
+  # end
 
   private
 

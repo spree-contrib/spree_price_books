@@ -6,20 +6,20 @@ module Spree
       let!(:currency_rate) { create :currency_rate, currency: 'GBP', exchange_rate: 0.75 }
       let(:variant1) { build(:variant) }
       let(:variant2) { build(:variant) }
+      let(:stock_location) { build(:stock_location) }
 
       subject { Calculator::Shipping::FlatMultiCurrencyRate.new(preferred_amount: 4.00) }
 
       context 'order for another currency' do
-        let(:package) do
-          Stock::Package.new(
-            build(:stock_location),
-            mock_model(Order, currency: 'GBP'),
-            [
-              Stock::Package::ContentItem.new(variant1, 2),
-              Stock::Package::ContentItem.new(variant2, 1)
-            ]
-          )
-        end
+        let(:order) { create(:order, currency: 'GBP') }
+        let(:line_item) { build(:line_item, order: order) }
+
+        let(:package) { Stock::Package.new(stock_location, 
+          [
+            Stock::ContentItem.new(build(:inventory_unit, order: order, variant: variant1)),
+            Stock::ContentItem.new(build(:inventory_unit, order: order, variant: variant2))
+          ])
+        }
 
         it 'always returns the same rate for base currency' do
           expect(subject.compute(package)).to eql 3.00
@@ -27,16 +27,15 @@ module Spree
       end
 
       context 'order for base currency' do
-        let(:package) do
-          Stock::Package.new(
-            build(:stock_location),
-            mock_model(Order, currency: Spree::Config[:currency]),
-            [
-              Stock::Package::ContentItem.new(variant1, 2),
-              Stock::Package::ContentItem.new(variant2, 1)
-            ]
-          )
-        end
+        let(:order) { build(:order, currency: Spree::Config[:currency]) }
+        let(:line_item) { build(:line_item, order: order) }
+
+        let(:package) { Stock::Package.new(stock_location, 
+          [
+            Stock::ContentItem.new(build(:inventory_unit, order: order, variant: variant1)),
+            Stock::ContentItem.new(build(:inventory_unit, order: order, variant: variant2))
+          ])
+        }
 
         it 'always returns the same rate for base currency' do
           expect(subject.compute(package)).to eql 4.00

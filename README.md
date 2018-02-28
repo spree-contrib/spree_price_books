@@ -46,6 +46,8 @@ When testing your applications integration with this extension you may use it's 
 Simply add this require statement to your spec_helper:
 
 ```ruby
+require 'factory_bot'
+require 'spree/testing_support/factories'
 require 'spree_price_books/factories'
 ```
 
