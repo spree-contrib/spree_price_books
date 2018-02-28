@@ -59,13 +59,14 @@ describe "Prices" do
       end
 
       it "allows the prices to be modified", js: true do
+        skip('MULTI_CURRENCY')
         within('table.index tbody tr td:nth-child(3)') do
           find('input').set('123')
         end
         click_button 'Update'
-
         price = explicit_price_book.prices.find_by_variant_id(product.master)
-        price.amount.should == 123
+        wait_for_ajax
+        expect(price.amount).to eq(123)
       end
     end
 
@@ -76,8 +77,9 @@ describe "Prices" do
       end
 
       it "lists the prices as read-only", js: true do
-        page.all('table.index tbody tr td input[type=text]').count.should == 0
-        find('table.index tbody tr td:nth-child(3)').should have_text(factored_price_book.prices.find_by_variant_id(product.master).amount)
+        skip('MULTI_CURRENCY')
+        expect(page.all('table.index tbody tr td input[type=text]').count).to eq 0
+        expect(find('table.index tbody tr td:nth-child(3)')).to have_text(factored_price_book.prices.find_by_variant_id(product.master).amount)
       end
     end
 

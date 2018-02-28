@@ -32,7 +32,6 @@ describe "Price Books - Existing" do
 
   it "can remove a PriceBook", js: true do
     click_icon :trash
-    page.driver.browser.switch_to.alert.accept
     wait_for_ajax
 
     expect(page).to have_content "has been successfully removed"

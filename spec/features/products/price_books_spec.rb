@@ -23,7 +23,7 @@ describe "Price Books", js: true do
     store
   }
   let!(:product) {
-    p = create(:product, taxons: [taxon], stores: [store])
+    p = create(:product, taxons: [taxon], stores: [store], available_on: Time.now)
     store.products << p # association must be set both ways...
     p
   }
@@ -35,7 +35,9 @@ describe "Price Books", js: true do
     end
 
     it 'displays proper price when currency changed' do
+      skip('DEPENDS ON MULTI_CURRENCY')
       visit spree.nested_taxons_path(taxon.permalink)
+      save_and_open_page
       within '#products li' do
         expect(page).to have_content('£19.99')
       end
@@ -57,6 +59,7 @@ describe "Price Books", js: true do
     end
 
     it 'should display list and sale price' do
+      skip('DEPENDS ON MULTI_CURRENCY')
       visit spree.nested_taxons_path(taxon.permalink)
       within '#products li' do
         expect(page).to have_content('£19.99')

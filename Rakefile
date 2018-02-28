@@ -2,7 +2,7 @@ require 'bundler'
 Bundler::GemHelper.install_tasks
 
 require 'rspec/core/rake_task'
-require 'spree/testing_support/extension_rake'
+require 'spree/testing_support/common_rake'
 
 RSpec::Core::RakeTask.new
 
@@ -14,9 +14,8 @@ task :default do
   Rake::Task[:spec].invoke
 end
 
-desc 'Generates a dummy app for testing'
+desc "Generates a dummy app for testing"
 task :test_app do
-  ENV['DB'] = 'postgres'
-  ENV['LIB_NAME'] = 'spree_price_books'
-  Rake::Task['extension:test_app'].invoke
+  ENV['LIB_NAME'] = 'solidus_multi_domain'
+  Rake::Task['common:test_app'].invoke
 end
