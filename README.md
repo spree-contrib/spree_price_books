@@ -22,7 +22,16 @@ bundle exec rails g spree_price_books:install
 Configuration
 -------------
 
-Once installed you can seed default currency exchange rates via Google's Currency API.
+Once installed you can seed default currency exchange rates via open exchange rate
+
+Get your app id from https://openexchangerates.org/signup
+
+Add open_exchange_rate.rb to config/initializers
+```ruby
+Rails.application.config.openExchangeRate = {
+  appId: 'YOUR APP ID HERE',
+}
+```
 
 ```shell
 bundle exec rake price_books:currency_rates

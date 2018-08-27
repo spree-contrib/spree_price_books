@@ -3,17 +3,15 @@
 <% end %>
 
 <% content_for :page_actions do %>
-  <li id="new_pb_link">
-    <%= button_link_to Spree.t(:new_price_book), new_admin_price_book_url, { :remote => true, :icon => 'icon-plus', :id => 'new_price_book_link' } %>
-  </li>
+    <%= link_to_with_icon 'add', Spree.t(:new_price_book), new_admin_price_book_url, { :remote => true, :class => 'btn btn-success', :id => 'new_price_book_link' } %>
 <% end %>
 
-<%= render :partial => 'spree/admin/shared/product_sub_menu' %>
+<%#= render :partial => 'spree/admin/shared/product_sub_menu' %>
 
 <div id="price_book_form_wrapper"></div>
 
 <% if @price_books.any? %>
-<table class="index sortable" id="listing_price_bookss" data-hook data-sortable-link="<%= update_positions_admin_option_types_url %>">
+<table class="table sortable" id="listing_price_bookss" data-hook data-sortable-link="<%= update_positions_admin_option_types_url %>">
   <colgroup>
     <col style="width: 5%">
     <col style="width: 30%">
